@@ -1,0 +1,22 @@
+---
+- name: Create democratic-csi namespace
+  kubernetes.core.k8s:
+    state: present
+    definition:
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: democratic-csi
+        labels:
+          pod-security.kubernetes.io/enforce: privileged
+          pod-security.kubernetes.io/audit: privileged
+          pod-security.kubernetes.io/warn: privileged
+- name: Instell the democratic-csi Helm chart
+  kubernetes.core.helm:
+    chart_repo_url: "https://democratic-csi.github.io/charts"
+    chart_ref: "democratic-csi"
+    chart_version: "0.14.1"
+    release_name: "democratic-csi"
+    release_namespace: "democratic-csi"
+    values: "{{ lookup('template', 'values.yaml') | from_yaml }}"
+    wait: true

@@ -5,3 +5,4 @@
     - kubelet_serving_cert_approver
     - metrics_server
     - metallb
+    - democratic_csi

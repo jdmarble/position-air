@@ -10,7 +10,10 @@ repos:
       - id: check-shebang-scripts-are-executable
       - id: check-symlinks
       - id: check-yaml
-        args: ["--allow-multiple-documents"]
+        args:
+          - "--allow-multiple-documents"
+          # Do not load, just parse the file. Need this for `!vault` directives.
+          - "--unsafe"
       - id: detect-private-key
       - id: end-of-file-fixer
       - id: mixed-line-ending
@@ -36,3 +39,8 @@ repos:
     rev: v6.20.3
     hooks:
       - id: ansible-lint
+  - repo: https://github.com/adrienverge/yamllint.git
+    rev: v1.32.0
+    hooks:
+      - id: yamllint
+        args: ["--strict"]
