@@ -1,0 +1,45 @@
+---
+- name: Create metallb-system namespace
+  kubernetes.core.k8s:
+    state: present
+    definition:
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: metallb-system
+        labels:
+          pod-security.kubernetes.io/enforce: privileged
+          pod-security.kubernetes.io/audit: privileged
+          pod-security.kubernetes.io/warn: privileged
+- name: Instell the metallb Helm chart
+  kubernetes.core.helm:
+    chart_repo_url: "https://metallb.github.io/metallb"
+    chart_ref: "metallb"
+    chart_version: "0.13.11"
+    release_name: "metallb"
+    release_namespace: "metallb-system"
+    wait: true
+- name: Configure the metallb IPAddressPool
+  kubernetes.core.k8s:
+    state: present
+    definition:
+      apiVersion: metallb.io/v1beta1
+      kind: IPAddressPool
+      metadata:
+        name: default
+        namespace: metallb-system
+      spec:
+        addresses:
+          - 192.168.2.128-192.168.2.250
+- name: Configure the metallb L2Advertisement
+  kubernetes.core.k8s:
+    state: present
+    definition:
+      apiVersion: metallb.io/v1beta1
+      kind: L2Advertisement
+      metadata:
+        name: default
+        namespace: metallb-system
+      spec:
+        ipAddressPools:
+          - default
