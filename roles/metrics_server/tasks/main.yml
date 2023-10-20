@@ -1,0 +1,9 @@
+---
+- name: Instell the metrics-server Helm chart
+  kubernetes.core.helm:
+    create_namespace: true
+    chart_repo_url: "https://kubernetes-sigs.github.io/metrics-server/"
+    chart_ref: "metrics-server"
+    chart_version: "3.11.0"
+    release_name: "metrics-server"
+    release_namespace: "metrics-server"

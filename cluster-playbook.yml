@@ -3,3 +3,4 @@
   hosts: localhost
   roles:
     - kubelet_serving_cert_approver
+    - metrics_server
