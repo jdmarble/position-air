@@ -1,0 +1,4 @@
+---
+# External Ansible collections and roles needed by the playbooks and roles in this repository
+collections:
+  - kubernetes.core

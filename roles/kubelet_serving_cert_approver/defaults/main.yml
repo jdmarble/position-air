@@ -1,0 +1,4 @@
+---
+kubelet_serving_cert_approver_namespace: "kubelet-serving-cert-approver"
+kubelet_serving_cert_approver_version: "0.7.5"
+kubelet_serving_cert_approver_sha256: "3ba61354deb42de9c262f10690aed284c1a31a111623c2b34c0daea70cf0192d" # pragma: allowlist secret
