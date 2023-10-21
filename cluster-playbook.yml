@@ -6,3 +6,4 @@
     - metrics_server
     - metallb
     - democratic_csi
+    - teleport_cluster

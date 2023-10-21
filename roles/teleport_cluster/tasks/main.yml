@@ -1,0 +1,30 @@
+---
+- name: Create teleport-cluster namespace
+  kubernetes.core.k8s:
+    state: present
+    definition:
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: teleport-cluster
+- name: Create a bootstrap configuration file
+  kubernetes.core.k8s:
+    state: present
+    definition:
+      apiVersion: v1
+      kind: ConfigMap
+      metadata:
+        namespace: teleport-cluster
+        name: bootstrap
+      data:
+        "bootstrap.yaml": |
+          {{ lookup('template', 'bootstrap.yaml') }}
+- name: Install the teleport-cluster Helm chart
+  kubernetes.core.helm:
+    chart_repo_url: "https://charts.releases.teleport.dev"
+    chart_ref: "teleport-cluster"
+    chart_version: ""
+    release_name: "teleport-cluster"
+    release_namespace: "teleport-cluster"
+    values: "{{ lookup('template', 'values.yaml') | from_yaml }}"
+    wait: true
