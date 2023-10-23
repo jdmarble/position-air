@@ -15,7 +15,7 @@
   kubernetes.core.helm:
     chart_repo_url: "https://metallb.github.io/metallb"
     chart_ref: "metallb"
-    chart_version: "0.13.11"
+    chart_version: "0.13.12"
     release_name: "metallb"
     release_namespace: "metallb-system"
     wait: true
