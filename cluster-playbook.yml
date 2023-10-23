@@ -10,3 +10,5 @@
      tags: ["metallb"]
    - role: democratic_csi
      tags: ["democratic_csi"]
+   - role: pgo
+     tags: ["pgo"]

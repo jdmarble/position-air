@@ -1,0 +1,16 @@
+---
+- name: Create PGO namespace
+  kubernetes.core.k8s:
+    state: present
+    definition:
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: pgo
+- name: Instell the pgo Helm chart
+  kubernetes.core.helm:
+    chart_ref: "oci://registry.developers.crunchydata.com/crunchydata/pgo"
+    chart_version: "5.4.2"
+    release_name: "pgo"
+    release_namespace: "pgo"
+    wait: true
