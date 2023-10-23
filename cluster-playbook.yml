@@ -2,8 +2,11 @@
 - name: Configure what is running on the cluster
   hosts: localhost
   roles:
-    - kubelet_serving_cert_approver
-    - metrics_server
-    - metallb
-    - democratic_csi
-    - teleport_cluster
+   - role: kubelet_serving_cert_approver
+     tags: ["kubelet_serving_cert_approver"]
+   - role: metrics_server
+     tags: ["metrics_server"]
+   - role: metallb
+     tags: ["metallb"]
+   - role: democratic_csi
+     tags: ["democratic_csi"]
