@@ -1,0 +1,55 @@
+---
+- name: Configure what is running on the cluster
+  hosts: localhost
+  tasks:
+    - name: Check for deprecated Kubernetes API versions
+      ansible.builtin.command: pluto detect-all-in-cluster
+      changed_when: false
+    - name: Hunt for vulnerabilities
+      ansible.builtin.command: kube-hunter --pod --kubeconfig ~/.kube/config
+      changed_when: false
+    - name: Discover Helm chart versions
+      ansible.builtin.command: nova find
+      changed_when: false
+      register: nova_chart_results
+    - name: Check for outdated Helm charts
+      ansible.builtin.assert:
+        that:
+          - not item.outdated
+        quiet: true
+        fail_msg: >
+          "{{ item.chartName }} is outdated.
+          Installed: {{ item.Installed.version }}.
+          Latest: {{ item.Latest.version }}"
+      loop: "{{ nova_chart_results.stdout_lines[0] | from_json }}"
+      loop_control:
+        label: "{{ item.chartName }} == {{ item.Installed.version }}"
+    - name: Use Popeye to check for cluster problems
+      ansible.builtin.command: popeye -o json
+      changed_when: false
+      register: popeye_results
+    - name: Check for cluster problems reported by Popeye
+      ansible.builtin.assert:
+        that:
+          # - item.tally.warning == 0
+          - item.tally.error == 0
+        quiet: true
+      loop: "{{ (popeye_results.stdout | from_json).popeye.sanitizers }}"
+      loop_control:
+        label: "{{ item.sanitizer }}"
+    - name: Discover container image versions
+      ansible.builtin.command: nova find --containers
+      changed_when: false
+      register: nova_container_results
+    - name: Check for outdated container images
+      ansible.builtin.assert:
+        that:
+          - not item.outdated
+        quiet: true
+        fail_msg: >
+          {{ item.name }} is outdated.
+          Installed: {{ item.current_version }}.
+          Latest: {{ item.latest_version }}
+      loop: "{{ (nova_container_results.stdout_lines[0] | from_json).container_images }}"
+      loop_control:
+        label: "{{ item.name }} == {{ item.current_version }}"

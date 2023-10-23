@@ -24,12 +24,16 @@
       devShell = pkgs.mkShell {
         buildInputs = with pkgs; [
           ansible
-          k9s
+          k9s # Useful for debugging
           kubectl
+          kube-hunter # Hunt for security weaknesses in Kubernetes clusters
           kubernetes-helm
           kubernetes-helmPlugins.helm-diff # Ansible module kubernetes.core.helm reports this improves change detection
           libiconv # Needed for ripsecrets pre-commit
-          pre-commit
+          nova # Checks for outdated Helm charts
+          pluto # Checks for deprecated k8s APIs
+          popeye # Scans cluster and reports potential issues
+          pre-commit # Runs ansible-lint (and more) before commit
         ] ++ [ python-packages ];
       };
     });
