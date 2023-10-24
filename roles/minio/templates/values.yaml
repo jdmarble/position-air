@@ -1,0 +1,3 @@
+---
+console:
+  enabled: false # Has no effect in 5.0.10, but maybe next release?

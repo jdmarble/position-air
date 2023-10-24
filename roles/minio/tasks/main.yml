@@ -1,0 +1,11 @@
+---
+- name: Instell the minio-operator Helm chart
+  kubernetes.core.helm:
+    create_namespace: true
+    chart_repo_url: "https://operator.min.io/"
+    chart_ref: "operator"
+    chart_version: "5.0.10"
+    release_name: "minio-operator"
+    release_namespace: "minio-operator"
+    values: "{{ lookup('template', 'values.yaml') | from_yaml }}"
+    wait: true

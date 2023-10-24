@@ -12,5 +12,7 @@
      tags: ["local_path_provisioner"]
    - role: democratic_csi
      tags: ["democratic_csi"]
+   - role: minio
+     tags: ["minio"]
    - role: pgo
      tags: ["pgo"]
