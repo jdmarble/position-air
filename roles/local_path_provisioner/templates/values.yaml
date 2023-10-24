@@ -1,0 +1,8 @@
+---
+nodePathMap:
+  - node: a500w
+    paths:
+      - "/var/mnt/local"
+  - node: q330g4
+    paths:
+      - "/var/mnt/local"

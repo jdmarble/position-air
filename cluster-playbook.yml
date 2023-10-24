@@ -8,6 +8,8 @@
      tags: ["metrics_server"]
    - role: metallb
      tags: ["metallb"]
+   - role: local_path_provisioner
+     tags: ["local_path_provisioner"]
    - role: democratic_csi
      tags: ["democratic_csi"]
    - role: pgo

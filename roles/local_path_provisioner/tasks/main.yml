@@ -1,0 +1,30 @@
+---
+- name: Create local-path-provisioner namespace
+  kubernetes.core.k8s:
+    state: present
+    definition:
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: local-path-provisioner
+        labels:
+          pod-security.kubernetes.io/enforce: privileged
+          pod-security.kubernetes.io/audit: privileged
+          pod-security.kubernetes.io/warn: privileged
+- name: Create a temporary directory to clone the Helm repository to
+  ansible.builtin.tempfile:
+    state: directory
+  register: local_path_provisioner_temp_dir
+- name: Git clone stable repo on HEAD
+  ansible.builtin.git:
+    repo: "https://github.com/rancher/local-path-provisioner.git"
+    version: "v0.0.24"
+    depth: 1
+    dest: "{{ local_path_provisioner_temp_dir.path }}"
+- name: Instell the local-path-provisioner Helm chart
+  kubernetes.core.helm:
+    chart_ref: "{{ local_path_provisioner_temp_dir.path }}/deploy/chart/local-path-provisioner"
+    release_name: "local-path-provisioner"
+    release_namespace: "local-path-provisioner"
+    values: "{{ lookup('template', 'values.yaml') | from_yaml }}"
+    wait: true
