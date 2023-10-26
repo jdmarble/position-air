@@ -1,0 +1,6 @@
+---
+controller:
+  ingressClass:
+    name: "{{ item }}"
+  service:
+    type: ClusterIP

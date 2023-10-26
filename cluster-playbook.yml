@@ -8,6 +8,8 @@
      tags: ["metrics_server"]
    - role: metallb
      tags: ["metallb"]
+   - role: ingress
+     tags: ["ingress"]
    - role: local_path_provisioner
      tags: ["local_path_provisioner"]
    - role: democratic_csi

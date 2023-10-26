@@ -22,6 +22,9 @@ repos:
     rev: v1.4.0
     hooks:
       - id: detect-secrets
+        args:
+          - '--exclude-lines'
+          - 'secretName'
   - repo: https://github.com/zricethezav/gitleaks
     rev: v8.18.0
     hooks:

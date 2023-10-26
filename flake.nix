@@ -24,6 +24,7 @@
       devShell = pkgs.mkShell {
         buildInputs = with pkgs; [
           ansible
+          cloudflared # For getting Cloudflare tunnel credentials
           k9s # Useful for debugging
           kubectl
           kube-hunter # Hunt for security weaknesses in Kubernetes clusters

@@ -1,0 +1,20 @@
+---
+- name: Install the nginx-ingress helm chart
+  kubernetes.core.helm:
+    chart_ref: "oci://ghcr.io/nginxinc/charts/nginx-ingress"
+    chart_version: "1.0.1"
+    release_name: "nginx-ingress-{{ item }}"
+    release_namespace: "nginx-ingress"
+    create_namespace: true
+    values: "{{ lookup('template', 'values.yaml') | from_yaml }}"
+    wait: true
+  loop:
+    - private
+    - public
+- name: Deploy Cloudflare Tunnel
+  kubernetes.core.k8s:
+    template: cloudflared.yaml
+    state: present
+  loop:
+    - private
+    - public
