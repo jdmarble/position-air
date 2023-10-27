@@ -1,4 +1,8 @@
 ---
 kubelet_serving_cert_approver_namespace: "kubelet-serving-cert-approver"
 kubelet_serving_cert_approver_version: "0.7.5"
-kubelet_serving_cert_approver_sha256: "3ba61354deb42de9c262f10690aed284c1a31a111623c2b34c0daea70cf0192d" # pragma: allowlist secret
+kubelet_serving_cert_approver_ha: true
+kubelet_serving_cert_approver_sha256_ha: "k3ba61354deb42de9c262f10690aed284c1a31a111623c2b34c0daea70cf0192d" # pragma: allowlist secret
+kubelet_serving_cert_approver_sha256_standalone: "c97c21cfe1b7b6dea6cc16ee69a7a9b3c5ac770b6cade55f4a42da8d74ce18fb" # pragma: allowlist secret
+kubelet_serving_cert_approver_sha256: "{{ kubelet_serving_cert_approver_ha | \
+  ansible.builtin.ternary(kubelet_serving_cert_approver_sha256_ha, kubelet_serving_cert_approver_sha256_standalone) }}"

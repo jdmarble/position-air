@@ -2,19 +2,31 @@
 - name: Configure what is running on the cluster
   hosts: localhost
   roles:
-   - role: kubelet_serving_cert_approver
-     tags: ["kubelet_serving_cert_approver"]
-   - role: metrics_server
-     tags: ["metrics_server"]
-   - role: metallb
-     tags: ["metallb"]
-   - role: ingress
-     tags: ["ingress"]
-   - role: local_path_provisioner
-     tags: ["local_path_provisioner"]
-   - role: democratic_csi
-     tags: ["democratic_csi"]
-   - role: minio
-     tags: ["minio"]
-   - role: pgo
-     tags: ["pgo"]
+    - role: kubelet_serving_cert_approver
+      tags: ["kubelet_serving_cert_approver"]
+      when: kubelet_serving_cert_approver_enabled
+      vars:
+        kubelet_serving_cert_approver_ha: "{{ ha }}"
+    - role: metrics_server
+      tags: ["metrics_server"]
+      when: metrics_server_enabled
+    - role: metallb
+      tags: ["metallb"]
+      when: metallb_enabled
+    - role: ingress
+      tags: ["ingress"]
+      when: ingress_enabled
+      vars:
+        ingress_ha: "{{ ha }}"
+    - role: local_path_provisioner
+      tags: ["local_path_provisioner"]
+      when: local_path_provisioner_enabled
+    - role: democratic_csi
+      tags: ["democratic_csi"]
+      when: democratic_csi_enabled
+    - role: minio
+      tags: ["minio"]
+      when: minio_enabled
+    - role: pgo
+      tags: ["pgo"]
+      when: pgo_enabled

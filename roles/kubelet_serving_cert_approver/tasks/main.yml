@@ -1,7 +1,9 @@
 ---
 - name: Get the kubelet-serving-cert-approver manifests
   ansible.builtin.uri:
-    url: "https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/v{{ kubelet_serving_cert_approver_version }}/deploy/ha-install.yaml"
+    url: "https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/\
+      v{{ kubelet_serving_cert_approver_version }}/deploy/\
+      {{ kubelet_serving_cert_approver_ha | ternary('ha', 'standalone') }}-install.yaml"
     return_content: true
   register: kubelet_serving_cert_approver_manifests
 - name: Verify the kubelet-serving-cert-approver manifests hash

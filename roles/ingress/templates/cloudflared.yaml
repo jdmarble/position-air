@@ -8,7 +8,7 @@ spec:
   selector:
     matchLabels:
       app: cloudflared-{{ item }}
-  replicas: 2
+  replicas: {{ ingress_ha | ternary(2, 1) }}
   template:
     metadata:
       labels:
@@ -91,4 +91,4 @@ metadata:
   namespace: nginx-ingress
   name: tunnel-credentials-{{ item }}
 data:
-  credentials.json: {{ ingress_tunnel_credentials.get(item) }}
+  credentials.json: {{ ingress_tunnel_credentials.get(item) | ansible.builtin.b64encode }}

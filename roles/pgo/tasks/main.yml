@@ -7,7 +7,7 @@
       kind: Namespace
       metadata:
         name: pgo
-- name: Instell the pgo Helm chart
+- name: Install the pgo Helm chart
   kubernetes.core.helm:
     chart_ref: "oci://registry.developers.crunchydata.com/crunchydata/pgo"
     chart_version: "5.4.2"
