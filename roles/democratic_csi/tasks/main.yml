@@ -15,7 +15,7 @@
   kubernetes.core.helm:
     chart_repo_url: "https://democratic-csi.github.io/charts"
     chart_ref: "democratic-csi"
-    chart_version: "0.14.1"
+    chart_version: "0.14.2"
     release_name: "democratic-csi"
     release_namespace: "democratic-csi"
     values: "{{ lookup('template', 'values.yaml') | from_yaml }}"
