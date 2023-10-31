@@ -1,0 +1,23 @@
+---
+- name: Create node-exporter namespace
+  kubernetes.core.k8s:
+    state: present
+    definition:
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: node-exporter
+        labels:
+          pod-security.kubernetes.io/enforce: privileged
+          pod-security.kubernetes.io/audit: privileged
+          pod-security.kubernetes.io/warn: privileged
+- name: Install the kube-prometheus-stack Helm chart
+  kubernetes.core.helm:
+    chart_repo_url: "https://prometheus-community.github.io/helm-charts"
+    chart_ref: "kube-prometheus-stack"
+    chart_version: "52.1.0"
+    release_name: "kube-prometheus-stack"
+    release_namespace: "prometheus"
+    create_namespace: true
+    values: "{{ lookup('template', 'values.yaml') | from_yaml }}"
+    wait: true

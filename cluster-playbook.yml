@@ -30,3 +30,9 @@
     - role: pgo
       tags: ["pgo"]
       when: pgo_enabled
+    - role: prometheus
+      tags: ["prometheus"]
+      when: prometheus_enabled
+      vars:
+        prometheus_alertmanager_hostname: "alertmanager.{{ ingress_base_url.get(prometheus_alertmanager_ingressclass) }}"
+        prometheus_grafana_hostname: "grafana.{{ ingress_base_url.get(prometheus_grafana_ingressclass) }}"

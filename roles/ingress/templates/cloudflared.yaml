@@ -3,16 +3,16 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: nginx-ingress
-  name: cloudflared-{{ item }}
+  name: cloudflared-{{ item.key }}
 spec:
   selector:
     matchLabels:
-      app: cloudflared-{{ item }}
+      app: cloudflared-{{ item.key }}
   replicas: {{ ingress_ha | ternary(2, 1) }}
   template:
     metadata:
       labels:
-        app: cloudflared-{{ item }}
+        app: cloudflared-{{ item.key }}
     spec:
       containers:
       - name: cloudflared
@@ -53,11 +53,11 @@ spec:
           # kubectl create secret generic tunnel-credentials \
           # --from-file=credentials.json=/Users/yourusername/.cloudflared/<tunnel ID>.json
           # ```
-          secretName: tunnel-credentials-{{ item }}
+          secretName: tunnel-credentials-{{ item.key }}
       # Create a config.yaml file from the ConfigMap below.
       - name: config
         configMap:
-          name: cloudflared-{{ item }}
+          name: cloudflared-{{ item.key }}
           items:
           - key: config.yaml
             path: config.yaml
@@ -66,11 +66,11 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   namespace: nginx-ingress
-  name: cloudflared-{{ item }}
+  name: cloudflared-{{ item.key }}
 data:
   config.yaml: |
     # Name of the tunnel you want to run
-    tunnel: {{ item }}
+    tunnel: {{ item.key }}
     credentials-file: /etc/cloudflared/creds/credentials.json
     metrics: 0.0.0.0:2000
     no-autoupdate: true
@@ -78,10 +78,10 @@ data:
     # This rule sends traffic to the built-in hello-world HTTP server. This can help debug connectivity
     # issues. If hello.example.com resolves and tunnel.example.com does not, then the problem is
     # in the connection from cloudflared to your local service, not from the internet to cloudflared.
-    - hostname: hello.{{ ingress_base_url.get(item) }}
+    - hostname: hello.{{ ingress_base_url.get(item.key) }}
       service: hello_world
-    - hostname: "*.{{ ingress_base_url.get(item) }}"
-      service: http://nginx-ingress-{{ item }}-controller:80
+    - hostname: "*.{{ ingress_base_url.get(item.key) }}"
+      service: http://nginx-ingress-{{ item.key }}-controller:80
     # This rule matches any traffic which didn't match a previous rule, and responds with HTTP 404.
     - service: http_status:404
 ---
@@ -89,6 +89,6 @@ apiVersion: v1
 kind: Secret
 metadata:
   namespace: nginx-ingress
-  name: tunnel-credentials-{{ item }}
+  name: tunnel-credentials-{{ item.key }}
 data:
-  credentials.json: {{ ingress_tunnel_credentials.get(item) | ansible.builtin.b64encode }}
+  credentials.json: {{ ingress_tunnel_credentials.get(item.key) | ansible.builtin.b64encode }}
