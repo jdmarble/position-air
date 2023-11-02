@@ -7,12 +7,11 @@ ungrouped:
       metrics_server_enabled: false # rancher-desktop installs metrics server by default
       metallb_enabled: false
       ingress_enabled: true
-      ingress_base_url:
-        dev: "chickencoup.net"
+      ingress_tunnel_name: dev
       local_path_provisioner_enabled: false # Already installed by k3s
       democratic_csi_enabled: false # No ZFS server available locally
       minio_enabled: true
       pgo_enabled: true
       prometheus_enabled: true
-      prometheus_alertmanager_ingressclass: "dev"
-      prometheus_grafana_ingressclass: "dev"
+      prometheus_alertmanager_hostname: "alertmanager.chickencoup.net"
+      prometheus_grafana_hostname: "grafana.chickencoup.net"

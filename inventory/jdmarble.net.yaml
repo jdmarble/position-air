@@ -9,12 +9,10 @@ ungrouped:
       democratic_csi_enabled: true
       metallb_enabled: true
       ingress_enabled: true
-      ingress_base_url:
-        private: "jdmarble.net"
-        public: "jdmarble.com"
+      ingress_tunnel_name: prod
       prometheus_enabled: true
-      prometheus_alertmanager_ingressclass: "private"
-      prometheus_grafana_ingressclass: "private"
+      prometheus_alertmanager_hostname: "alertmanager.jdmarble.net"
+      prometheus_grafana_hostname: "grafana.jdmarble.net"
       minio_enabled: true
       pgo_enabled: true
 controlplane:
