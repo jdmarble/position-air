@@ -1,0 +1,49 @@
+---
+csiDriver:
+  name: "org.democratic-csi.nfs"
+storageClasses:
+  - name: nfs
+    defaultClass: false
+    reclaimPolicy: Delete
+    volumeBindingMode: Immediate
+    allowVolumeExpansion: true
+    parameters:
+      fsType: nfs
+      detachedVolumesFromSnapshots: "false"
+    mountOptions:
+      - noatime
+      - nfsvers=3
+    secrets:
+      provisioner-secret:
+      controller-publish-secret:
+      node-stage-secret:
+      node-publish-secret:
+      controller-expand-secret:
+volumeSnapshotClasses:
+  - name: nfs
+    parameters:
+      detachedSnapshots: "true"
+driver:
+  config:
+    driver: freenas-api-nfs
+    httpConnection:
+      protocol: https
+      host: e14s-5wr04w1.jdmarble.net
+      apiKey: "{{democratic_csi_freenas_apikey}}"
+    zfs:
+      datasetParentName: "front/jdmarble-net-nfs/v"
+      detachedSnapshotsDatasetParentName: "front/jdmarble-net-nfs/s"
+      datasetEnableQuotas: true
+      datasetEnableReservation: false
+      datasetPermissionsMode: "0777"
+      datasetPermissionsUser: 0
+      datasetPermissionsGroup: 0
+    nfs:
+      shareHost: e14s-5wr04w1.jdmarble.net
+      shareAlldirs: false
+      shareAllowedHosts: []
+      shareAllowedNetworks: []
+      shareMaprootUser: root
+      shareMaprootGroup: root
+      shareMapallUser: ""
+      shareMapallGroup: ""
