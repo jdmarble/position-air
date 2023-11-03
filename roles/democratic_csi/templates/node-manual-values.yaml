@@ -1,0 +1,6 @@
+---
+csiDriver:
+  name: "org.democratic-csi.node-manual"
+driver:
+  config:
+    driver: node-manual
