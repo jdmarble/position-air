@@ -36,3 +36,6 @@
       vars:
         prometheus_alertmanager_ingressclass: "external"
         prometheus_grafana_ingressclass: "external"
+    - role: jellyfin
+      tags: ["jellyfin"]
+      when: jellyfin_enabled

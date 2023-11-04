@@ -1,0 +1,17 @@
+---
+env:
+  TZ: "America/Los Angeles"
+  JELLYFIN_PublishedServerUrl: "http://jellyfin.jdmarble.net"
+service:
+  main:
+    type: LoadBalancer
+    #ports:
+    #  http:
+    #    port: 80
+    loadBalancerIP: "192.168.2.129"
+persistence:
+  config:
+    enabled: true
+  media:
+    enabled: true
+    existingClaim: media-video

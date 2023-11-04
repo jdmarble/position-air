@@ -10,9 +10,10 @@ ungrouped:
       metallb_enabled: true
       ingress_enabled: true
       ingress_tunnel_name: prod
+      jellyfin_enabled: true
       prometheus_enabled: true
-      prometheus_alertmanager_hostname: "alertmanager.jdmarble.net"
-      prometheus_grafana_hostname: "grafana.jdmarble.net"
+      prometheus_alertmanager_hostname: "alertmanager.jdmarble.com"
+      prometheus_grafana_hostname: "grafana.jdmarble.com"
       minio_enabled: true
       pgo_enabled: true
 controlplane:
