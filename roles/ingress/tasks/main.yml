@@ -2,7 +2,7 @@
 - name: Install the nginx-ingress helm chart
   kubernetes.core.helm:
     chart_ref: "oci://ghcr.io/nginxinc/charts/nginx-ingress"
-    chart_version: "1.0.1"
+    chart_version: "1.0.2"
     release_name: "nginx-ingress"
     release_namespace: "nginx-ingress"
     create_namespace: true
