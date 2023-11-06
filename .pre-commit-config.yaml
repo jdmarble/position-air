@@ -34,6 +34,6 @@ repos:
     hooks:
       - id: ripsecrets
   - repo: https://github.com/ansible/ansible-lint.git
-    rev: v6.21.1
+    rev: v6.22.0
     hooks:
       - id: ansible-lint
