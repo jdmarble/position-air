@@ -1,20 +1,3 @@
 ---
-alertmanager:
-  ingress:
-    enabled: true
-    ingressClassName: "{{ prometheus_alertmanager_ingressclass }}"
-    hosts:
-      - "{{ prometheus_alertmanager_hostname }}"
-  alertmanagerSpec:
-    securityContext:
-
-
-grafana:
-  ingress:
-    enabled: true
-    ingressClassName: "{{ prometheus_grafana_ingressclass }}"
-    hosts:
-      - "{{ prometheus_grafana_hostname }}"
-
 prometheus-node-exporter:
   namespaceOverride: "node-exporter" # Needs to be in a priviledged namespace

@@ -30,6 +30,9 @@
     - role: pgo
       tags: ["pgo"]
       when: pgo_enabled
+    - role: authentik
+      tags: ["authentik"]
+      when: authentik_enabled
     - role: prometheus
       tags: ["prometheus"]
       when: prometheus_enabled

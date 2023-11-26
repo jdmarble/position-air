@@ -1,6 +1,0 @@
----
-controller:
-  ingressClass:
-    name: external
-  service:
-    type: ClusterIP

@@ -1,0 +1,22 @@
+---
+- name: Install the authentik Helm chart
+  kubernetes.core.helm:
+    chart_repo_url: "https://charts.goauthentik.io"
+    chart_ref: "authentik"
+    chart_version: "2023.10.4"
+    release_name: "authentik"
+    release_namespace: "authentik"
+    create_namespace: true
+    values: "{{ lookup('template', 'values.yaml') | from_yaml }}"
+- name: Create a secret with blueprints
+  kubernetes.core.k8s:
+    state: present
+    definition:
+      apiVersion: v1
+      kind: Secret
+      metadata:
+        name: blueprint-config
+        namespace: authentik
+      data:
+        "users.yaml": "{{ lookup('template', 'users-blueprint.yaml') | b64encode }}"
+        "cloudflare-access.yaml": "{{ lookup('template', 'cloudflare-access-blueprint.yaml') | b64encode }}"

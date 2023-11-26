@@ -1,0 +1,48 @@
+---
+containerSecurityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - "ALL"
+  runAsNonRoot: true
+  seccompProfile:
+    type: "RuntimeDefault"
+
+authentik:
+  secret_key: "{{ authentik_secret_key }}"
+  postgresql:
+    password: "{{ authentik_postgres_password }}"
+env:
+  AUTHENTIK_DISABLE_UPDATE_CHECK: true
+  AUTHENTIK_ERROR_REPORTING__ENABLED: false
+  AUTHENTIK_BOOTSTRAP_PASSWORD: "{{ authentik_akadmin_password }}"
+
+volumes:
+  - name: blueprint-config
+    secret:
+      secretName: blueprint-config
+volumeMounts:
+  - name: blueprint-config
+    readOnly: true
+    mountPath: "/blueprints/mounted/blueprint-config"
+
+worker:
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+        - "ALL"
+    runAsNonRoot: true
+    seccompProfile:
+      type: "RuntimeDefault"
+
+postgresql:
+  enabled: true
+  postgresqlPassword: "{{ authentik_postgres_password }}"
+  persistence:
+    enabled: false
+redis:
+  enabled: true
+  master:
+    persistence:
+      enabled: false

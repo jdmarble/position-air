@@ -3,6 +3,7 @@ ungrouped:
     localhost:
       ansible_connection: local
       ha: true
+      authentik_enabled: true
       kubelet_serving_cert_approver_enabled: true
       metrics_server_enabled: true
       local_path_provisioner_enabled: true
