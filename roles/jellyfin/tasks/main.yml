@@ -1,16 +1,4 @@
 ---
-- name: Create jellyfin namespace
-  kubernetes.core.k8s:
-    state: present
-    definition:
-      apiVersion: v1
-      kind: Namespace
-      metadata:
-        name: jellyfin
-- name: Apply static PV/PVC manifests
-  kubernetes.core.k8s:
-    state: present
-    definition: "{{  lookup('template', 'video-pvc.yaml') | from_yaml_all }}"
 - name: Install the Jellyfin Helm chart
   kubernetes.core.helm:
     create_namespace: true

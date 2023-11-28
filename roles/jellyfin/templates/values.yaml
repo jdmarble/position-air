@@ -16,4 +16,6 @@ persistence:
     enabled: true
   media:
     enabled: true
-    existingClaim: media-video
+    type: nfs
+    server: e14s-5wr04w1.jdmarble.net
+    path: /mnt/front/video
