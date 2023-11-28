@@ -2,6 +2,8 @@
 env:
   TZ: "America/Los Angeles"
   JELLYFIN_PublishedServerUrl: "http://jellyfin.jdmarble.net"
+image:
+  tag: "10.8.12"
 service:
   main:
     type: LoadBalancer
