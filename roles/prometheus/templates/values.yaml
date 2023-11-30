@@ -14,6 +14,8 @@ grafana:
     users:
       allow_sign_up: false
       auto_assign_org: true
+    auth.basic:
+      enabled: false
     auth.jwt:
       # Adapted from https://gist.github.com/mhr3/f741ffa71f4dfa0152a6020758042c32
       enabled: true
@@ -23,3 +25,5 @@ grafana:
       email_claim: email
       jwk_set_url: "https://jdmarble.cloudflareaccess.com/cdn-cgi/access/certs"
       header_name: "Cf-Access-Jwt-Assertion"
+    date_formats:
+      default_timezone: "America/Los Angeles"

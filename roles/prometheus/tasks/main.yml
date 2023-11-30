@@ -15,7 +15,7 @@
   kubernetes.core.helm:
     chart_repo_url: "https://prometheus-community.github.io/helm-charts"
     chart_ref: "kube-prometheus-stack"
-    chart_version: "52.1.0"
+    chart_version: "54.2.2"
     release_name: "kube-prometheus-stack"
     release_namespace: "prometheus"
     create_namespace: true
