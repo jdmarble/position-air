@@ -9,6 +9,7 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-utils.follows = "flake-utils";
+        pypi-deps-db.url = "github:shebpamm/pypi-deps-db-2";
       };
     };
   };
