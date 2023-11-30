@@ -24,7 +24,7 @@ repos:
       - id: detect-secrets
         args:
           - '--exclude-lines'
-          - 'secretName'
+          - '[Ss]ecret[-_]*[Nn]ame'
   - repo: https://github.com/zricethezav/gitleaks
     rev: v8.18.1
     hooks:

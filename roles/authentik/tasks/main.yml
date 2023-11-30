@@ -20,3 +20,4 @@
       data:
         "users.yaml": "{{ lookup('template', 'users-blueprint.yaml') | b64encode }}"
         "cloudflare-access.yaml": "{{ lookup('template', 'cloudflare-access-blueprint.yaml') | b64encode }}"
+        "ldap.yaml": "{{ lookup('template', 'ldap-blueprint.yaml') | b64encode }}"
