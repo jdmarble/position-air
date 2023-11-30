@@ -18,7 +18,7 @@
 - name: Git clone stable repo on HEAD
   ansible.builtin.git:
     repo: "https://github.com/rancher/local-path-provisioner.git"
-    version: "v0.0.24"
+    version: "v0.0.25"
     depth: 1
     dest: "{{ local_path_provisioner_temp_dir.path }}"
 - name: Install the local-path-provisioner Helm chart
