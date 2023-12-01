@@ -1,0 +1,14 @@
+---
+image:
+  tag: "v0.107.41"
+services:
+  http:
+    enabled: true
+  https:
+    enabled: false
+  dns:
+    type: LoadBalancer
+    loadBalancerIP: "192.168.2.129"
+bootstrapConfig:
+  tls:
+    enabled: false
