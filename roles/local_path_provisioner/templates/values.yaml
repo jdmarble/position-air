@@ -1,8 +1,11 @@
 ---
 nodePathMap:
-  - node: a500w
+  - node: a300w
     paths:
       - "/var/mnt/local"
   - node: q330g4
+    paths:
+      - "/var/mnt/local"
+  - node: sock-quota
     paths:
       - "/var/mnt/local"
