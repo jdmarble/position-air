@@ -32,9 +32,9 @@
     - role: minio
       tags: ["minio"]
       when: minio_enabled
-    - role: pgo
-      tags: ["pgo"]
-      when: pgo_enabled
+    - role: postgres_operator
+      tags: ["postgres_operator"]
+      when: postgres_operator_enabled
     - role: authentik
       tags: ["authentik"]
       when: authentik_enabled

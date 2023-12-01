@@ -18,7 +18,7 @@ ungrouped:
       prometheus_alertmanager_hostname: "alertmanager.jdmarble.com"
       prometheus_grafana_hostname: "grafana.jdmarble.com"
       minio_enabled: true
-      pgo_enabled: true
+      postgres_operator_enabled: true
 controlplane:
   hosts:
     n07d-4pdc5j2:
