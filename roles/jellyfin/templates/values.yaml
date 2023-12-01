@@ -7,7 +7,6 @@ image:
 ingress:
   main:
     enabled: true
-    ingressClassName: "nginx"
     hosts:
       - host: jellyfin.jdmarble.net
         paths:

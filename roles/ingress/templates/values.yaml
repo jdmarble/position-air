@@ -7,6 +7,8 @@ controller:
       enabled: true
       additionalLabels:
         release: kube-prometheus-stack
+  ingressClassResource:
+    default: true
   replicas: {{ ingress_ha | ternary(2, 1) }}
   service:
     type: LoadBalancer
