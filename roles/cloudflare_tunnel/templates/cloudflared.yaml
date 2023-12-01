@@ -1,14 +1,19 @@
 ---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cloudflared
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: nginx-ingress
+  namespace: cloudflared
   name: cloudflared
 spec:
   selector:
     matchLabels:
       app: cloudflared
-  replicas: {{ ingress_ha | ternary(2, 1) }}
+  replicas: {{ cloudflare_tunnel_ha | ternary(2, 1) }}
   template:
     metadata:
       labels:
@@ -65,12 +70,12 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  namespace: nginx-ingress
+  namespace: cloudflared
   name: cloudflared
 data:
   config.yaml: |
     # Name of the tunnel you want to run
-    tunnel: {{ ingress_tunnel_name }}
+    tunnel: {{ cloudflare_tunnel_name }}
     credentials-file: /etc/cloudflared/creds/credentials.json
     metrics: 0.0.0.0:2000
     no-autoupdate: true
@@ -81,7 +86,7 @@ data:
 apiVersion: v1
 kind: Secret
 metadata:
-  namespace: nginx-ingress
+  namespace: cloudflared
   name: tunnel-credentials
 data:
-  credentials.json: {{ ingress_tunnel_credentials | ansible.builtin.b64encode }}
+  credentials.json: {{ cloudflare_tunnel_credentials | ansible.builtin.b64encode }}

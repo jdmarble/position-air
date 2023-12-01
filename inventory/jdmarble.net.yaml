@@ -7,10 +7,11 @@ ungrouped:
       kubelet_serving_cert_approver_enabled: true
       metrics_server_enabled: true
       local_path_provisioner_enabled: true
+      cloudflare_tunnel_enabled: true
+      cloudflare_tunnel_name: prod
       democratic_csi_enabled: true
       metallb_enabled: true
       ingress_enabled: true
-      ingress_tunnel_name: prod
       jellyfin_enabled: true
       prometheus_enabled: true
       prometheus_alertmanager_hostname: "alertmanager.jdmarble.com"

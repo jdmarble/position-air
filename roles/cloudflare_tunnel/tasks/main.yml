@@ -1,0 +1,5 @@
+---
+- name: Deploy Cloudflare Tunnel
+  kubernetes.core.k8s:
+    template: cloudflared.yaml
+    state: present

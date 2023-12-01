@@ -18,6 +18,11 @@
       when: ingress_enabled
       vars:
         ingress_ha: "{{ ha }}"
+    - role: cloudflare_tunnel
+      tags: ["cloudflare_tunnel"]
+      when: cloudflare_tunnel_enabled
+      vars:
+        cloudflare_tunnel_ha: "{{ ha }}"
     - role: local_path_provisioner
       tags: ["local_path_provisioner"]
       when: local_path_provisioner_enabled

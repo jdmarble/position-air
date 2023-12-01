@@ -1,0 +1,13 @@
+---
+controller:
+  metrics:
+    # https://github.com/kubernetes/ingress-nginx/blob/main/charts/ingress-nginx/README.md#prometheus-metrics
+    enabled: true
+    serviceMonitor:
+      enabled: true
+      additionalLabels:
+        release: kube-prometheus-stack
+  replicas: {{ ingress_ha | ternary(2, 1) }}
+  service:
+    type: LoadBalancer
+    loadBalancerIP: 192.168.2.130

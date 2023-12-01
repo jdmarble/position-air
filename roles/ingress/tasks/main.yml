@@ -1,5 +1,10 @@
 ---
-- name: Deploy Cloudflare Tunnel
-  kubernetes.core.k8s:
-    template: cloudflared.yaml
-    state: present
+- name: Install the Nginx Ingress Controller Helm chart
+  kubernetes.core.helm:
+    create_namespace: true
+    chart_repo_url: "https://kubernetes.github.io/ingress-nginx"
+    chart_ref: "ingress-nginx"
+    chart_version: "4.8.2"
+    release_name: "ingress-nginx"
+    release_namespace: "ingress-nginx"
+    values: "{{ lookup('template', 'values.yaml') | from_yaml }}"
