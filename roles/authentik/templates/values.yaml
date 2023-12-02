@@ -11,6 +11,7 @@ containerSecurityContext:
 authentik:
   secret_key: "{{ authentik_secret_key }}"
   postgresql:
+    host: "authentik-db-rw"
     password: "{{ authentik_postgres_password }}"
 env:
   AUTHENTIK_DISABLE_UPDATE_CHECK: true
@@ -36,13 +37,11 @@ worker:
     seccompProfile:
       type: "RuntimeDefault"
 
-postgresql:
-  enabled: true
-  postgresqlPassword: "{{ authentik_postgres_password }}"
-  persistence:
-    enabled: false
 redis:
   enabled: true
   master:
     persistence:
+      # https://goauthentik.io/docs/core/architecture#redis
+      # > Data in Redis is not required to be persistent,
+      # > however you should be aware that restarting Redis will cause the loss of all sessions.
       enabled: false

@@ -38,6 +38,8 @@
     - role: authentik
       tags: ["authentik"]
       when: authentik_enabled
+      vars:
+        authentik_ha: "{{ ha }}"
     - role: prometheus
       tags: ["prometheus"]
       when: prometheus_enabled

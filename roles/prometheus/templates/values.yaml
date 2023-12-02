@@ -1,4 +1,13 @@
 ---
+prometheus:
+  prometheusSpec:
+    # Pick up CRDs without having to add release labels.
+    # This is okay because there should only be one instance of Prometheus.
+    ruleSelectorNilUsesHelmValues: false
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
+    probeSelectorNilUsesHelmValues: false
+    scrapeConfigSelectorNilUsesHelmValues: false
 prometheus-node-exporter:
   namespaceOverride: "node-exporter" # Needs to be in a priviledged namespace
 grafana:

@@ -8,6 +8,10 @@
     release_namespace: "authentik"
     create_namespace: true
     values: "{{ lookup('template', 'values.yaml') | from_yaml }}"
+- name: Deploy a postgres database
+  kubernetes.core.k8s:
+    template: postgres_cluster.yaml
+    state: present
 - name: Create a secret with blueprints
   kubernetes.core.k8s:
     state: present

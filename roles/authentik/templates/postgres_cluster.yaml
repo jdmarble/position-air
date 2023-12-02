@@ -1,0 +1,29 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  namespace: authentik
+  name: authentik-db
+type: kubernetes.io/basic-auth
+stringData:
+  username: authentik
+  password: "{{ authentik_postgres_password }}"
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  namespace: authentik
+  name: authentik-db
+spec:
+  instances: {{ authentik_ha | ternary(2, 1) }}
+  bootstrap:
+    initdb:
+      database: authentik
+      owner: authentik
+      secret:
+        name: authentik-db
+  storage:
+    size: 1Gi
+    storageClass: local-path
+  monitoring:
+    enablePodMonitor: true
