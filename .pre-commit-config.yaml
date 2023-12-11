@@ -14,7 +14,7 @@ repos:
       - id: mixed-line-ending
       - id: trailing-whitespace
   - repo: https://github.com/streetsidesoftware/cspell-cli
-    rev: v8.0.0
+    rev: v8.1.1
     hooks:
       - id: cspell
         files: "\\.md$"
@@ -34,6 +34,6 @@ repos:
     hooks:
       - id: ripsecrets
   - repo: https://github.com/ansible/ansible-lint.git
-    rev: v6.22.0
+    rev: v6.22.1
     hooks:
       - id: ansible-lint
