@@ -3,7 +3,7 @@
   kubernetes.core.helm:
     chart_repo_url: "https://charts.goauthentik.io"
     chart_ref: "authentik"
-    chart_version: "2023.10.4"
+    chart_version: "2023.10.5"
     release_name: "authentik"
     release_namespace: "authentik"
     create_namespace: true
