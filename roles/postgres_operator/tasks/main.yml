@@ -3,7 +3,7 @@
   kubernetes.core.helm:
     chart_repo_url: "https://cloudnative-pg.github.io/charts"
     chart_ref: "cloudnative-pg"
-    chart_version: "v0.19.1"
+    chart_version: "v0.20.0"
     release_name: "cnpg"
     release_namespace: "cnpg"
     create_namespace: true
