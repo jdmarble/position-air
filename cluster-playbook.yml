@@ -52,3 +52,8 @@
     - role: jellyfin
       tags: ["jellyfin"]
       when: jellyfin_enabled
+    - role: minecraft
+      tags: ["minecraft"]
+      when: minecraft_enabled
+
+

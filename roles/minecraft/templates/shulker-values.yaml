@@ -1,0 +1,5 @@
+---
+operator:
+  metrics:
+    servicemonitor:
+      enabled: true

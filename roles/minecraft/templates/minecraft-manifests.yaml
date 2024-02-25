@@ -1,0 +1,43 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  namespace: mc-jdmarble-com
+  name: redis-default-credentials
+type: kubernetes.io/basic-auth
+stringData:
+  username: default
+  password: "{{ minecraft_redis_password }}"
+---
+apiVersion: shulkermc.io/v1alpha1
+kind: MinecraftCluster
+metadata:
+  namespace: mc-jdmarble-com
+  name: mc-jdmarble-com
+spec:
+  redis:
+    type: Provided
+    provided:
+      host: redis-master
+      credentialsSecretName: redis-default-credentials
+---
+apiVersion: shulkermc.io/v1alpha1
+kind: ProxyFleet
+metadata:
+  namespace: mc-jdmarble-com
+  name: public
+spec:
+  clusterRef:
+    name: mc-jdmarble-com
+  replicas: 1
+  service:
+    type: LoadBalancer
+    externalTrafficPolicy: Local
+    annotations:
+      metallb.universe.tf/loadBalancerIPs: 192.168.2.131
+  template:
+    spec:
+      version:
+        channel: Velocity
+        name: latest
+      config: {}

@@ -1,0 +1,10 @@
+---
+auth:
+  existingSecret: redis-default-credentials
+  existingSecretPasswordKey: password
+master:
+  persistence:
+    size: 1Gi
+replica:
+  persistence:
+    size: 1Gi

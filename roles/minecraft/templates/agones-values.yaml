@@ -1,0 +1,10 @@
+---
+agones:
+  ping:
+    install: false
+  allocator:
+    service:
+      serviceType: ClusterIP
+gameservers:
+  namespaces:
+    - "shulker-system"

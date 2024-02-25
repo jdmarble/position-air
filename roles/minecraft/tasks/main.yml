@@ -1,0 +1,55 @@
+---
+- name: Create shulker-system namespace before deploying Agones
+  kubernetes.core.k8s:
+    state: present
+    definition:
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: shulker-system
+- name: Install the Agones Helm chart
+  kubernetes.core.helm:
+    create_namespace: true
+    chart_repo_url: "https://agones.dev/chart/stable"
+    chart_ref: "agones"
+    chart_version: "1.38.0"
+    release_name: "agones"
+    release_namespace: "agones-system"
+    values: "{{ lookup('template', 'agones-values.yaml') | from_yaml }}"
+    wait: true # Need to wait for the CRDs to deploy before Shulker
+- name: Create a temporary directory to clone the shulker Helm repository to
+  ansible.builtin.tempfile:
+    state: directory
+  register: shulker_temp_dir
+- name: Git clone stable repo on HEAD
+  ansible.builtin.git:
+    repo: "https://github.com/jeremylvln/Shulker"
+    version: "v0.7.0"
+    depth: 1
+    dest: "{{ shulker_temp_dir.path }}"
+- name: Install the shulker Helm chart
+  kubernetes.core.helm:
+    chart_ref: "{{ shulker_temp_dir.path }}/kube/helm"
+    release_name: "shulker"
+    release_namespace: "shulker-system"
+    values: "{{ lookup('template', 'shulker-values.yaml') | from_yaml }}"
+    wait: true # Need to wait for the CRDs to deploy before
+- name: Create namespace the minecraft servers will actually run on
+  kubernetes.core.k8s:
+    state: present
+    definition:
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: mc-jdmarble-com
+- name: Install a HA Redis cluster using a Helm chart
+  kubernetes.core.helm:
+    chart_ref: "oci://registry-1.docker.io/bitnamicharts/redis"
+    chart_version: "18.16.1"
+    release_name: "redis"
+    release_namespace: "mc-jdmarble-com"
+    values: "{{ lookup('template', 'redis-values.yaml') | from_yaml }}"
+- name: Configure shulker with minecraft cluster and servers
+  kubernetes.core.k8s:
+    state: present
+    definition: "{{ lookup('template', 'minecraft-manifests.yaml') | from_yaml_all }}"
